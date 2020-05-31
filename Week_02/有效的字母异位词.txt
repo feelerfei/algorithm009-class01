@@ -1,0 +1,84 @@
+ /*使用数组*/
+    public  boolean isAnagram(String s, String t) {
+    
+        char[] ss = s.toCharArray();
+        char[] ts = t.toCharArray();
+        Arrays.sort(ss);
+        Arrays.sort(ts);
+        return  Arrays.equals(ss,ts);
+    }
+    /*使用哈希表*/
+    public  boolean isAnagram2(String s, String t) {
+
+        char[] ss = s.toCharArray();
+        char[] ts = t.toCharArray();
+        Map map = new HashMap<String,Integer>();
+        if (ss.length != ts.length ){
+            return false;
+        } else {
+            String sVal , tVal;
+            Integer j;
+            for (int i = 0;i < ss.length; i++) {
+                sVal = String.valueOf(ss[i]);
+                tVal = String.valueOf(ts[i]);
+                if(map.containsKey(sVal)){
+                    j = (Integer) map.get(sVal);
+                    map.put(sVal, ++j) ;
+                }else {
+                    map.put(sVal,1);
+                }
+                if(map.containsKey(tVal)){
+                    j = (Integer)map.get(tVal);
+                    map.put(tVal, --j) ;
+                }else {
+                    map.put(tVal,-1);
+                }
+            }
+        }
+        Iterator iterator = map.values().iterator();
+        while(iterator.hasNext()){
+            Integer value = (Integer)iterator.next();
+            if(value != 0){
+                return false;
+            }
+        }
+
+        return true;
+    }
+    /*使用哈希表最佳*/
+    public  boolean isAnagram3(String s, String t) {
+
+        if (s.length() != t.length()) {
+            return false;
+        }
+        int[] counter = new int[26];
+
+        for (int i = 0;i < s.length();i++) {
+            counter[s.charAt(i) - 'a'] ++;
+            counter[t.charAt(i) - 'a'] --;
+        }
+        for (int count : counter){
+            if(count != 0){
+                return false;
+            }
+        }
+        return true;
+
+    }
+    //哈希方法2
+    public  boolean isAnagram4(String s, String t) {
+        if (s.length() != t.length()) {
+            return false;
+        }
+        int[] counter = new int[26];
+        for (int i = 0; i < s.length(); i++) {
+            counter[s.charAt(i) - 'a'] ++;
+        }
+        for (int i = 0; i < t.length(); i++) {
+            counter[t.charAt(i) - 'a'] --;
+            if(counter[t.charAt(i) - 'a'] < 0){
+                return false;
+            }
+        }
+        return true;
+    }
