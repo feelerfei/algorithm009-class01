@@ -1,0 +1,47 @@
+1、递归
+
+class Solution {
+    public int climbStairs(int n) {
+         int[] demo = new int[n+1];
+
+         return climb_stair(0, n, demo);
+    }
+     public int climb_stair (int i, int n, int[] demo){
+
+        if(i > n) {
+            return 0;
+        }
+        if(i == n) {
+            return 1;
+        }
+
+        if(demo[i]  > 0) {
+            return demo[i];
+        }
+        demo[i] = climb_stair(i + 1, n, demo) + climb_stair(i + 2, n, demo);
+
+        return demo[i];
+    }
+}
+
+2、动态规划
+
+class Solution {
+    public int climbStairs(int n) {
+        return clim_stairs(n);
+    }
+    public int clim_stairs(int n) {
+        if(n == 1){
+            return 1;
+        }
+        int[] dept = new int[n + 1];
+
+        dept[1] = 1;
+        dept[2] = 2;
+
+        for (int i = 3;i < dept.length; i ++) {
+            dept[i] = dept[i - 1] + dept[i - 2];
+        }
+        return dept[n];
+    }
+}

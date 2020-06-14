@@ -1,0 +1,24 @@
+//递归方法
+class Solution {
+    public List<String> generateParenthesis(int n) {
+
+         List<String> result = new ArrayList<String>();
+
+         groupParenthesis(0, 0, n, "", result);
+           
+           return result;
+
+    }
+     private void groupParenthesis(int left, int right, int n, String s, List<String> result) {
+        if (left == n && right == n) {
+            result.add(s);
+            return;
+        }
+        if(left < n) {
+            groupParenthesis(left + 1, right, n, s + "(", result);
+        }
+        if(left > right) {
+            groupParenthesis(left, right + 1, n, s + ")", result);
+        }
+    }
+}
